@@ -1,0 +1,30 @@
+{
+  "name": "goops",
+  "version": "1.0.0",
+  "description": "A CLI tool that automatically generates a gitignore for a project",
+  "bin": {
+    "goops": "src/index.js"
+  },
+  "scripts": {
+    "test": "mocha tests",
+    "postinstall": "mkdir -p gitignores && node src/load-gitignores.js"
+  },
+  "main": "src/index.js",
+  "keywords": [
+    "git",
+    "command line tool",
+    "developer experience"
+  ],
+  "author": "Safia Abdalla <safia@safia.rocks> (http://safia.rocks/)",
+  "license": "MIT",
+  "dependencies": {
+    "gitignore": "^0.6.0",
+    "lodash.pickby": "^4.6.0",
+    "minimatch": "^3.0.3",
+    "readline-sync": "^1.4.6"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
