@@ -15,6 +15,13 @@
     "command line tool",
     "developer experience"
   ],
+  "bugs": {
+    "url": "https://github.com/captainsafia/goops/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/captainsafia/goops"
+  },
   "author": "Safia Abdalla <safia@safia.rocks> (http://safia.rocks/)",
   "license": "MIT",
   "dependencies": {
