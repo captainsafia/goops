@@ -18,4 +18,4 @@ const contents = fs.readdirSync(cwd).map(function(element) {
 const gitignore = path.join(__dirname, '/../gitignores', getGitIgnore(contents));
 const filePath = path.join(cwd, '/.gitignore');
 
-fs.createReadStream(gitignore).pipe(fs.createWriteStream(filePath));
+fs.createReadStream(gitignore).pipe(fs.createWriteStream(filePath, { flags: 'a' }));
