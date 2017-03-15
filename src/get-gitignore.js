@@ -37,8 +37,8 @@ function getGitIgnore(contents, callback) {
   });
 
 
-  const counts = Object.values(ignored).reduce(function(count, value) {
-    return count + (value === ignored[sorted[0]]);
+  const counts = Object.keys(ignored).reduce(function(count, value) {
+    return count + (ignored[value] === ignored[sorted[0]]);
   }, 0);
 
   if (counts > 1) {
