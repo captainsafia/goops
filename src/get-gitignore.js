@@ -26,8 +26,10 @@ function applies(gitignore, contents) {
   return count; 
 }
 
-function getGitIgnore(contents, callback) {
+function getGitIgnore(contents, selectAll = false) {
   const ignored = {};
+  const relevantGitignores = []; // used to return an array of gitignores push into the local .gitignore
+
   gitignores.map(function(gitignore) {
     ignored[gitignore] = applies(gitignore, contents);
   });
@@ -42,20 +44,40 @@ function getGitIgnore(contents, callback) {
   }, 0);
 
   if (counts > 1) {
-    console.log('Multiple possible options found! Please select one from the list.');
     const filtered = Object.keys(pickBy(ignored, function(value, key) {
       return value === ignored[sorted[0]];
     }));
 
+    // if selectAll is true we'll skip the option display and just return all the options
+    if (selectAll) {
+      return filtered;
+    }
+
+    console.log('Multiple possible options found! Please select one or more options from the list.');
+
     filtered.forEach(function(element, index) {
       console.log((index + 1) + '. ' + element);
     });
-    
-    const choice = readline.question('Enter a number from the above: ');
-    return filtered[choice - 1];  
+
+    const selectAllNumber = filtered.length + 1;
+    console.log(`${selectAllNumber}. Select All`);
+
+    const selectionResponse = readline.question('Enter a number or separate multiple options with a comma (e.g. 1, 2, 3): ');
+    const selectionsArray = selectionResponse.replace(' ', ',').split(',').filter(el => el.length > 0);
+
+   // if the number for the select all option is listed, return everything
+    if (selectionsArray.indexOf(selectAllNumber.toString()) !== -1) {
+      return filtered; // returns an array of all the options
+    };
+
+    selectionsArray.forEach(selectionNumber => {
+      relevantGitignores.push(filtered[selectionNumber - 1]);
+    })
+    return relevantGitignores;
   }
 
-  return sorted[0];
+  relevantGitignores.push(sorted[0]);
+  return relevantGitignores;
 }
 
 module.exports = getGitIgnore;
