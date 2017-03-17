@@ -53,7 +53,7 @@ function getGitIgnore(contents, selectAll = false) {
       return filtered;
     }
 
-    console.log('Multiple possible options found! Please select one from the list.');
+    console.log('Multiple possible options found! Please select one or more options from the list.');
 
     filtered.forEach(function(element, index) {
       console.log((index + 1) + '. ' + element);
@@ -62,13 +62,17 @@ function getGitIgnore(contents, selectAll = false) {
     const selectAllNumber = filtered.length + 1;
     console.log(`${selectAllNumber}. Select All`);
 
-    const choice = readline.question('Enter a number from the above: ');
+    const selectionResponse = readline.question('Enter a number or separate multiple options with a comma (e.g. 1, 2, 3): ');
+    const selectionsArray = selectionResponse.replace(' ', ',').split(',').filter(el => el.length > 0);
 
-    if (choice == selectAllNumber) {
+   // if the number for the select all option is listed, return everything
+    if (selectionsArray.indexOf(selectAllNumber) !== -1) {
       return filtered; // returns an array of all the options
     };
 
-    relevantGitignores.push(filtered[choice - 1]);
+    selectionsArray.forEach(selectionNumber => {
+      relevantGitignores.push(filtered[selectionNumber - 1]);
+    })
     return relevantGitignores;
   }
 
