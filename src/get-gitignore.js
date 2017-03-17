@@ -66,7 +66,7 @@ function getGitIgnore(contents, selectAll = false) {
     const selectionsArray = selectionResponse.replace(' ', ',').split(',').filter(el => el.length > 0);
 
    // if the number for the select all option is listed, return everything
-    if (selectionsArray.indexOf(selectAllNumber) !== -1) {
+    if (selectionsArray.indexOf(selectAllNumber.toString()) !== -1) {
       return filtered; // returns an array of all the options
     };
 
