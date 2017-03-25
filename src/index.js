@@ -9,7 +9,7 @@ const cwd = process.cwd();
 
 const contents = fs.readdirSync(cwd).map(function(element) {
   if (fs.statSync(path.join(cwd, element)).isDirectory()) {
-    return element + "/";
+    return element + '/';
   } else {
     return element;
   }
